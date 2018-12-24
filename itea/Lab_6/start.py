@@ -147,7 +147,7 @@ def task_9():
 
 
 def lin_change(lin, arg, ind):
-    lin2 = lin[0:int(ind)-1] + arg + lin[int(ind):-1]
+    lin2 = lin[:int(ind)] + arg + lin[int(ind) + 1:]
     return lin2
 
 
@@ -177,6 +177,7 @@ def task_11():
          se2.append(randint(30, 50))
     se3 = set(se1) - set(se2)
     return(se3)
+
 
 if __name__ == '__main__':
     task_10()
