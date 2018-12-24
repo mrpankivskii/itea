@@ -1,4 +1,4 @@
-#дз 5,6,8,9,11!!!!!!
+#дз 8,!!!!!!
 from string import ascii_lowercase
 
 
@@ -64,6 +64,18 @@ EFGH
 IJKL
 """
 
+    s = input('Введіть текст\n')
+    s_weight = int(input('Введіть ширину\n'))
+    li = list(s)
+    count = len(s) + (len(s)//s_weight)
+    for x in range(count):
+        if x % (s_weight + 1) == 0:
+            li.insert(x, '\n')
+            count += 1
+    print(''.join(li))
+
+
+
 def task_7():
     """Юзер вводить текст. У тексті якщо є два або більше пробіла,
     замінити одним. Табуляцію  теж замініти пробілом. Надрукувати результат. """
@@ -79,13 +91,26 @@ def task_8():
     Наприклад рядок =  ABCDCDC, підрядок = CDC, відповідь 2 рази. """
     s = input('Введіть рядок\n')
     ss = input('Введіть підрядок\n')
-    count = s.find(ss)
-    print(count)
+    m = list(s)
+    result = 0
+    for x in range(len(s)):
+        count = s.find(ss)
+        m[count] = ' '
+        s.join(m)
+        if count:
+            result += 1
+        count = 0
+
+    print(result)
 
 
 def task_9():
     """Вам дано рядок. Розділити рядок розділювачем "" (пробіл)
     і приєднати результати, використовуючи дефіс. Надрукувати результат(ЗАМІНИТИ ПРОБІЛ ДЕФІСОМ)."""
+
+    s = input('Введіть текст\n')
+    res = s.replace(' ', '-')
+    print(res)
 
 
 def task_10():
@@ -100,7 +125,7 @@ def task_10():
 def task_11():
     """(hackerrank) Юзер вводить строку. Перевірити чи ця строка є послідовністю!!!! цифр. Тобто
          var = ‘91011’  є послідовністю, треба надрукувати ‘YES’.
-         var = ‘10001003’ не є послідовністю, треба надрукувати ‘NO’
+         var = ‘10001003’ не є послід   овністю, треба надрукувати ‘NO’
     """
     input_number = input('Введіть стрічку\n')
     for index in range(1, 1 + len(input_number) // 2):
@@ -124,7 +149,14 @@ def task_12():
 	special_characters = "!@#$%^&*()-+"
 """
     pas = input('Введіть пароль\n')
-    num = 0
+    numbers = "0123456789"
+    lower_case = "abcdefghijklmnopqrstuvwxyz"
+    upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    special_characters = "!@#$%^&*()-+"
+
+
+
+   ''' num = 0
     n = 6 - len(pas)
     if len(pas) < 6:
         print("Пароль надто кототкий введіть ще {} символ(и)".format(n))
@@ -145,8 +177,8 @@ def task_12():
     if '!' or '@' or '#' or '$' or '%' or '^' or '&' or '*' or '(' or ')' or '-' or '+' in pas:
         print('Пароль надійний')
     else:
-        print("Пароль повинен містити спеціальні символи'!@#$%^&*()-+'")
+        print("Пароль повинен містити спеціальні символи'!@#$%^&*()-+'")'''
 
 
 if __name__ == '__main__':
-    task_11()
+    task_8()
