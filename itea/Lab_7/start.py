@@ -80,7 +80,9 @@ def task_6():
         text = book3_file.read()
     upper_count = 0
     lower_count = 0
+    element_counter = 0
     for letter in text:
+        element_counter += 1
         if letter.isalpha():
             if letter.isupper():
                 upper_count += 1
@@ -89,7 +91,7 @@ def task_6():
     all_letters = upper_count + lower_count
     percent_of_upper_letter = round((upper_count / all_letters) * 100)
     percent_of_lower_letter = round((lower_count / all_letters) * 100)
-    print("apper - {}% \nlower - {}%".format(percent_of_upper_letter, percent_of_lower_letter))
+    print("apper - {}% \nlower - {}%\n{}".format(percent_of_upper_letter, percent_of_lower_letter,element_counter))
 
 
 if __name__ == '__main__':
