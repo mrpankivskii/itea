@@ -40,8 +40,7 @@ def task_4():
     Треба вернути список всіх можливих комбінацій. Наприклад є строка var = ‘it’ результатом буде
     result_list = [‘IT’, “It”, “iT”, ‘it’]."""
     user_input = input("Введіть строку\n").lower()
-    print(user_input)
-    count = 0
+    output_list = [user_input]
     while not user_input.isupper():
         for x in user_input:
             if x.isupper():
@@ -49,15 +48,10 @@ def task_4():
                 for y in user_input[:index+1]:
                     user_input = user_input.replace(y, y.lower(), 1)
             elif x.islower():
-                if user_input.count(x) > 1:
-                    count_dict = {x: user_input.count(x)}
-
-                    if count == user_input.count(x) + 1:
-                        count = 0
-                else:
-                    user_input = user_input.replace(x, x.upper(), 1)
-                    break
-        print(user_input)
+                user_input = user_input.replace(x, x.upper(), 1)
+                break
+        output_list.append(user_input)
+    print("result_list = {}".format(output_list))
 
 
 def task_5():
@@ -66,11 +60,14 @@ def task_5():
          var = ‘10001003’ не є послідовністю, треба надрукувати ‘NO’
     """
     user_input = input("Введіть строку\n")
-    temp_user_input = list(user_input)
-    max_len = len(user_input) // 2
-    for x in range(len(user_input)):
-        if temp_user_input == 0:
-            print(max_len)
+    my_range = list((range(10**(len(user_input) // 2))))
+    str_range = ""
+    for x in my_range:
+        str_range += ''.join(str(x))
+    if user_input in str_range:
+        output('yes')
+    else:
+        output('no')
 
 
 def task_6():
@@ -103,4 +100,4 @@ def task_6():
 
 
 if __name__ == "__main__":
-    task_4()
+    task_5()

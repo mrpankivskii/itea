@@ -1,4 +1,6 @@
 from random import randint
+
+
 def printing(a):
     if type(a) == int:
         for x in range(a):
@@ -154,8 +156,13 @@ yler = { "name": "Tyler",  "homework": [0.0, 87.0, 75.0, 22.0], "quizzes": [0.0,
             return'B'
         else:
             return'D'
-
-
+    average_mark = []
+    for x in students:
+        print("{}'s average mark for homework - {}".format(x['name'], get_letter_grade(average(x["homework"]))))
+        average_mark.append(average(x["homework"]))
+        average_mark.append(average(x["quizzes"]))
+        average_mark.append(average(x["tests"]))
+    print("Average mark for all - {}({})".format(get_letter_grade(average(average_mark)), int(average(average_mark))))
 
 
 if __name__ == "__main__":
