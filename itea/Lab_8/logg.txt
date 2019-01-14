@@ -1,0 +1,1 @@
+(10, 10){}Arguments are writen(5, 5){}Arguments are writen(10, 10){}Arguments are writen(5, 5){}Arguments are writen
