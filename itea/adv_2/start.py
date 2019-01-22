@@ -358,24 +358,28 @@ def task_17():
     def timing(func):
         def inner(*args, **kwargs):
             func_start_time = time()
-            func(*args, **kwargs)
+            result = func(*args, **kwargs)
             func_end_time = time()
             func_time = func_end_time - func_start_time
             print(func_time)
-            return func_time
+            return result
 
         return inner
 
-    def test_list_long():
-        pass
+    @timing
+    def test_list_long(n):
+        my_list = list()
+        for x in range(n):
+            my_list.append(n)
 
     @timing
     def test_list_advance(n):
-        my_list = list()
+        li =[True] *n
         for x in range(n):
-            my_list.append(randint(0, 9))
+            li[x] = x
 
-    test_list_advance(3)
+    test_list_long(10**8)
+    test_list_advance(10**8)
 
 
 def task_18():
@@ -411,4 +415,4 @@ def task_18():
 
 
 if __name__ == "__main__":
-    task_10()
+    task_17()
