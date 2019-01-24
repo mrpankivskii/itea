@@ -55,13 +55,13 @@ def task_4():
             print(f'time is {result}')
             return result
         return inner
-    tree = BinaryTree
+    tree = BinaryTree()
     node = Node(7)
     elements_list = list(range(10**6))
     tree.root = len(elements_list)//2
     shuffle(elements_list)
     for number in elements_list:
-        tree.add_node(number)
+        tree.add_node(Node(number))
 
     @timing
     def binary_serch(number):

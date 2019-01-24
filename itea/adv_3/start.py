@@ -147,28 +147,25 @@ Out[33]: {'userId': 1, 'id': 1, 'title': 'delectus aut autem', 'completed': Fals
   8.5) Якщо тендер має тип ( procurementMethodType)  aboveThresholdUA  або майданичик, що створив цей тендер
   ( поле owner ) ->  prom.ua  то ці тендери зберегти в файлі tenders.pickle
 """
-    respond = requests.get('https://lb.api.openprocurement.org/api/2.4/tenders?offset=2018-03-19')
-    resp = respond.json()
-    list_of_dicts = resp['data']
+    respond = requests.get('https://lb.api.openprocurement.org/api/2.4/tenders?offset=2018-03-19').json()
+    list_of_dicts = respond['data']
     tender_list = list()
     for x in list_of_dicts:
-        tend = requests.get(f"https://lb.api.openprocurement.org/api/2.3/tenders/{str(x['id'])}")
+        tend = requests.get(f"https://lb.api.openprocurement.org/api/2.3/tenders/{x['id']}")
         tender = tend.json()
         tender_list.append(tender)
 
-    def max_velue():
+    def max_value():
         contract_values = list()
+        contract = list()
         for tender in tender_list:
             if tender['data']['status'] == 'complete':
-                contract_values.append(tender['data']['contracts'][0]['value']['amount'])
+                for contract in tender['data']['contracts']:
+                    contract_values.append(tender['data']['contracts'][contract]['value']['amount'])
+                    contract.append(tender['data']['contracts'][contract])
         max_contract_value = max(contract_values)
-        return max_contract_value
-
-    def contract():
-        for tender in tender_list:
-            if tender['data']['contracts'][0]['value']['amount'] == max_velue():
-                with open('max_contract.json', 'wb') as max_contract_value_file:
-                    json.dump(tender, max_contract_value_file)
+        index = contract_values.index(max_contract_value)
+        return contract[index]
 
     def unsuccessful():
         count = 0
@@ -177,16 +174,8 @@ Out[33]: {'userId': 1, 'id': 1, 'title': 'delectus aut autem', 'completed': Fals
                 count += 1
         return count
 
-    def contractors():
-        contractors_list = list()
-        for tender in tender_list:
-            if tender['data']['contracts']['suppliers'][0]['contactPoint']['name'] not in contractors_list:
-                contractors_list.append(tender['data']['contracts']['suppliers'][0]['contactPoint']['name'])
-        print(len(contractors_list))
-
-    contract()
+    print(max_value())
     print(f'unsuccessful - {unsuccessful()} tenders')
-    #contractors()
 
 
 def task_9():
@@ -200,4 +189,4 @@ max_func_from_module2 значення функції max_of_three імпорт�
 
 
 if __name__ == "__main__":
-    task_9()
+    task_8()
