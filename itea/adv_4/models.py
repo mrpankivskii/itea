@@ -40,7 +40,7 @@ class BinaryTree:
         if not self.root:
             return False
         else:
-            return item
+            return item in self.root
 
 
 class Node:
@@ -54,11 +54,13 @@ class Node:
         if node.value < self.value:
             if self.left_node:
                 self.left_node.add_node(node)
-            self.left_node = node
+            else:
+                self.left_node = node
         elif node.value > self.value:
             if self.right_node:
                 self.right_node.add_node(node)
-            self.right_node = node
+            else:
+                self.right_node = node
 
     def __contains__(self, node):
         if self.value == node.value:
