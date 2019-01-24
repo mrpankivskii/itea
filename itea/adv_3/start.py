@@ -118,7 +118,6 @@ def task_7():
         with open('sites.pickle', 'wb') as sites:
             pickle.dump(with_sites, sites, pickle.HIGHEST_PROTOCOL)
 
-
     def school_counter():
         count = 0
         for x in info:
@@ -185,9 +184,9 @@ Out[33]: {'userId': 1, 'id': 1, 'title': 'delectus aut autem', 'completed': Fals
                 contractors_list.append(tender['data']['contracts']['suppliers'][0]['contactPoint']['name'])
         print(len(contractors_list))
 
-    #contract()
+    contract()
     print(f'unsuccessful - {unsuccessful()} tenders')
-    contractors()
+    #contractors()
 
 
 def task_9():
