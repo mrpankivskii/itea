@@ -58,14 +58,13 @@ def task_4():
     tree = BinaryTree()
     node = Node(7)
     elements_list = list(range(10**6))
-    tree.root = len(elements_list)//2
     shuffle(elements_list)
     for number in elements_list:
         tree.add_node(Node(number))
 
     @timing
     def binary_serch(number):
-        if node.__contains__(number):
+        if number in node:
             print('find')
 
     @timing
