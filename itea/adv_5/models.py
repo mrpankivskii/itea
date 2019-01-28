@@ -1,8 +1,8 @@
 import pickle
 
 
-deputy_dict = dict()
-fraction_dict = dict()
+deputy_dict = {'1': 1}
+fraction_dict = {'id': "name"}
 
 
 class Human:
@@ -105,11 +105,18 @@ class Fraction:
         print(deputy_dict)
 
 # ------------------------------------------------------------------------------------------------
-
+    '''
     def print_bribe_taker(self):
         """Відсортувати депутатів за хабарем(fanctor)"""
+        id = 0
+        temp_dict = dict()
+        for key in deputy_dict:
+            if key['bribe_taker'] == True
+            id += 1
+            temp_dict[id] = deputy_dict[key]
+        temp_dict = sorted(deputy_dict, key)
         pass
-
+    '''
 # ------------------------------------------------------------------------------------------------
 
     def print_bigest_bribe_taker(self):
@@ -138,17 +145,45 @@ class VerkhovnaRada:
 
     def add_fraction(self):
         global fraction_dict
-        fraction_name = input("Input fraction name\n")
-        fraction_dict.add(Fraction(fraction_name))
+        print(fraction_dict)
+        self.fraction_name = input("Input fraction name\n")
+        count = 0
+        while count in fraction_dict:
+            count += 1
+        fraction_dict[count] = self.fraction_name
 
     def del_fraction(self):
         global fraction_dict
-        print(fraction_dict.__dict__)
+        print(fraction_dict)
         fraction_name = input("Input fraction name\n")
+        del_key = 0
         for key in fraction_dict:
             if key == fraction_name:
                 del_key = key
         del fraction_dict[del_key]
+        print(fraction_dict)
+
+    def print_all_fractions(self):
+        print(fraction_dict)
+        for key in fraction_dict:
+            if key != 'id':
+                print(fraction_dict[key])
+
+    def print_target_fraction(self):
+        pass
+    def add_deputy_to_target_fraction(self):
+        pass
+    def  del_deputy_from_fraction(self):
+        pass
+    def print_all_bribe_takers_in_rada(self):
+        pass
+    def print_the_bigest_bribe_taker_in_rada(self):
+        pass
+    def print_all_deputy_in_rada(self):
+        pass
+    def is_deputy_in_rada(self):
+        pass
+
 
 class DBOfVerchovnaRada:
     @staticmethod
