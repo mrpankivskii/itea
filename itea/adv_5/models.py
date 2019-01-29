@@ -61,62 +61,70 @@ class Deputat(Human):
 # ----------------------------------------------------------------------------------------------
 
 
-class Fraction:
+class Fraction(Deputat):
 
-    def __init__(self, fraction_name):
+    def __init__(self, fraction_name, last_name, name, date_of_birth, height, weight, bribe_taker, bribe_value):
+        super().__init__(last_name, name, date_of_birth, height, weight, bribe_taker, bribe_value)
         self.fraction_name = fraction_name
 
     def add_deputy(self):
         global deputy_dict
-        count_deputy = 0
-        name = input('Input name of deputy.\n')
-        last_name = input('Input last name of deputy.\n')
-        date_of_birth = input('Input date of birth\n')
-        weight = input('Input weight of deputy\n')
-        height = input('Input height of deputy\n')
-        bribe_taker = input('Did the deputy takes bribe? If yes enter 1, in other way enter 0\n')
-        if bribe_taker == '1':
-            bribe_value = input('Input the bribe value\n')
+        self.name = input('Input name of deputy.\n')
+        self.last_name = input('Input last name of deputy.\n')
+        self.date_of_birth = input('Input date of birth\n')
+        self.weight = input('Input weight of deputy\n')
+        self.height = input('Input height of deputy\n')
+        self.bribe_taker = input('Did the deputy takes bribe? If yes enter 1, in other way enter 0\n')
+        if self.bribe_taker == '1':
+            self.bribe_value = input('Input the bribe value\n')
         else:
-            bribe_value = None
-        count_deputy += 1
-        deputy_dict[count_deputy] = Deputat(name, last_name, date_of_birth, weight, height, bool(bribe_taker),
-                                            bribe_value)
+            self.bribe_value = None
+        count = 0
+        while count in deputy_dict:
+            count += 1
+        deputy_dict[count] = [self.name, self.last_name, self.date_of_birth, self.weight, self.height,
+                                     bool(self.bribe_taker), self.bribe_value]
         print(deputy_dict)
 
     def del_deputy(self):
         global deputy_dict
         temp_dict = dict()
-        name = input('Input name of deputy.\n')
-        last_name = input('Input last name of deputy.\n')
-        date_of_birth = input('Input date of birth\n')
-        weight = input('Input weight of deputy\n')
-        height = input('Input height of deputy\n')
-        bribe_taker = input('Did the deputy takes bribe? If yes enter 1, in other way enter 0\n')
-        if bribe_taker == '1':
-            bribe_value = input('Input the bribe value\n')
+        self.name = input('Input name of deputy.\n')
+        self.last_name = input('Input last name of deputy.\n')
+        self.date_of_birth = input('Input date of birth\n')
+        self.weight = input('Input weight of deputy\n')
+        self.height = input('Input height of deputy\n')
+        self.bribe_taker = input('Did the deputy takes bribe? If yes enter 1, in other way enter 0\n')
+        if self.bribe_taker == '1':
+            self.bribe_value = input('Input the bribe value\n')
         else:
-            bribe_value = None
-        temp_dict['deputy'] = Deputat(name, last_name, date_of_birth, weight, height, bool(bribe_taker), bribe_value)
+            self.bribe_value = None
+        temp_dict['deputy'] = [self.name, self.last_name, self.date_of_birth, self.weight, self.height,
+                                     bool(self.bribe_taker), self.bribe_value]
         for key in deputy_dict:
             if temp_dict['deputy'] == deputy_dict[key]:
                 del_key = key
         del deputy_dict[del_key]
         print(deputy_dict)
 
-# ------------------------------------------------------------------------------------------------
-    '''
+# ------------------------------------------------------------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!
+
     def print_bribe_taker(self):
+        print(deputy_dict)
         """Відсортувати депутатів за хабарем(fanctor)"""
+        def sort(a):
+            return a[7]
         id = 0
         temp_dict = dict()
-        for key in deputy_dict:
-            if key['bribe_taker'] == True
-            id += 1
-            temp_dict[id] = deputy_dict[key]
-        temp_dict = sorted(deputy_dict, key)
-        pass
-    '''
+        for values in deputy_dict.values():
+            for index, x in enumerate(list(values)):
+                print(x)
+            '''
+            if values[5] == True:
+                id += 1
+                temp_dict[id] = deputy_dict[values]'''
+        print(sorted(temp_dict.values(), key=sort))
+
 # ------------------------------------------------------------------------------------------------
 
     def print_bigest_bribe_taker(self):
@@ -141,7 +149,9 @@ class Fraction:
         pass
 
 
-class VerkhovnaRada:
+class VerkhovnaRada(Fraction):
+    def __init__(self, fraction_name):
+        super().__init__(fraction_name)
 
     def add_fraction(self):
         global fraction_dict
@@ -169,10 +179,13 @@ class VerkhovnaRada:
             if key != 'id':
                 print(fraction_dict[key])
 
-    def print_target_fraction(self):
-        pass
+    def print_target_fraction(self, fraction_name):
+        for key, x in fraction_dict.items():
+            if x == fraction_name:
+                print(fraction_dict[key])
+
     def add_deputy_to_target_fraction(self):
-        pass
+        self
     def  del_deputy_from_fraction(self):
         pass
     def print_all_bribe_takers_in_rada(self):
