@@ -1,4 +1,4 @@
-from utils import Sorting
+from utils import Sorting, IntDescriptor, StrDescriptor
 
 
 class Human:
@@ -18,6 +18,10 @@ class Human:
 
 
 class Deputat(Human):
+    weight = IntDescriptor
+    height = IntDescriptor
+    name = StrDescriptor
+    surname = StrDescriptor
 
     def __init__(self, surname, name, date_of_birth, weight, height, bribe_taker):
         super().__init__(weight, height)
@@ -54,6 +58,7 @@ class Deputat(Human):
 
 
 class Fraction:
+    name = StrDescriptor
 
     def __init__(self, name):
         self.name = name
