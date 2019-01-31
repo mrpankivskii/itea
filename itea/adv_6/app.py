@@ -94,8 +94,17 @@ def main():
             deputat = Fraction.get_deputat()
             print(deputat in rada)
         elif user_input == 13:
-            deputat = Fraction.get_deputat()
-            Deputat.give_tribute(deputat)
+            fraction_name = input('Enter fraction name\n')
+            fr = Fraction(fraction_name)
+            if fr not in rada:
+                print('No such fraction in rada')
+            else:
+                for fraction in rada.fractions:
+                    if fraction == fr:
+                        deputat = Fraction.get_deputat()
+                        for dep in fraction.deputats:
+                            if deputat == dep:
+                                Deputat.give_tribute(deputat)
         elif user_input == 0:
             save_rada(rada)
             break

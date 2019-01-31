@@ -1,4 +1,15 @@
-from utils import Sorting, IntDescriptor, StrDescriptor
+from utils import Sorting, IntDescriptor, StrDescriptor, DateDescriptor
+
+
+class RadaType(type):
+    def __new__(cls, clsname, bases, dct):
+        uppercase_attr = {}
+        for name, val in dct.items():
+            if not name.startwith("__"):
+                uppercase_attr[name.upper()] = val
+            else:
+                uppercase_attr[name] = val
+        return type.__new__(cls, clsname, bases, uppercase_attr)
 
 
 class Human:
@@ -22,6 +33,7 @@ class Deputat(Human):
     height = IntDescriptor
     name = StrDescriptor
     surname = StrDescriptor
+    date_of_birth = DateDescriptor
 
     def __init__(self, surname, name, date_of_birth, weight, height, bribe_taker):
         super().__init__(weight, height)
