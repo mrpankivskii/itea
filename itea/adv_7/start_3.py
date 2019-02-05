@@ -10,9 +10,11 @@ def my_enumerate(elements):
 
 def test():
     for index, data in my_enumerate(my_list):
-        print(f'{index}, {data} - my enumerate')
+        for index, data in my_enumerate(my_list):
+            print(f'{index}, {data} - my enumerate')
     for ingex, data in enumerate(my_list):
-        print(f'{ingex}, {data} - enumerate')
+        for ingex, data in enumerate(my_list):
+            print(f'{ingex}, {data} - enumerate')
 
 
 if __name__ == '__main__':
