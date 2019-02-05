@@ -1,4 +1,3 @@
-from datetime import date
 import os
 import pickle
 
@@ -32,69 +31,3 @@ def save_rada(rada):
 
     with open(database_path, 'wb') as target:
         pickle.dump({'rada': rada}, target)
-
-
-class Counter:
-    def __init__(self, count=0):
-        self.count = count
-
-
-class IntDescriptor(Counter):
-    def __init__(self, count):
-        super().__init__(count)
-        count += 1
-
-    def __set_name__(self, owner, name):
-        self.name = '_' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        value = int(value)
-        assert instance(value, int) and value > 0
-        setattr(instance, self.name, value)
-
-    def __delete__(self, instance):
-        delattr(instance, self.name)
-
-
-class StrDescriptor(Counter):
-    def __init__(self, count):
-        super().__init__(count)
-        count += 1
-
-    def __set_name__(self, owner, name):
-        self.name = '_' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        value = str(value)
-        assert instance(value, str) and len(value) > 2
-        setattr(instance, self.name, value)
-
-    def __delete__(self, instance):
-        delattr(instance, self.name)
-
-
-class DateDescriptor(Counter):
-    def __init__(self, count):
-        super().__init__(count)
-        count += 1
-
-    def __set_name__(self, owner, name):
-        self.name = '_' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        day, month, year = value.split('-')
-        value = date(int(year), int(month), int(day))
-        assert instance(value, date)
-        setattr(instance, self.name, value)
-
-    def __delete__(self, instance):
-        delattr(instance, self.name)

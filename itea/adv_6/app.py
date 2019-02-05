@@ -23,6 +23,7 @@ def main():
     rada = load_rada()
     if not rada:
         rada = VerhovnaRada()
+        import ipdb; ipdb.set_trace()
     while True:
         print(help_text)
         user_input = int(input().strip())
