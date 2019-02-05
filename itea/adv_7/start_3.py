@@ -1,4 +1,4 @@
-my_list = ['a', 'b', 'c', 'd']
+my_list = ['a', 's', 'b', 'c', 'd', 'f', 'q']
 
 
 def my_enumerate(elements):
