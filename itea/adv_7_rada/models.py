@@ -1,6 +1,6 @@
 from utils import Sorting
 from descriptors import IntDescriptor, StrDescriptor, DateDescriptor
-
+from abc import ABC, abstractmethod
 
 class RadaMetaClass(type):
     counter = 0
@@ -40,19 +40,16 @@ class Human(metaclass=RadaMetaClass):
         return False
 
 
-class Deputat(Human, metaclass=RadaMetaClass):
+class Deputat(Human, ABC, metaclass=RadaMetaClass):
     str_types = ['surname', 'name']
 
     date_of_birth = DateDescriptor()
 
-
-    def __init__(self, surname, name, date_of_birth, weight, height, bribe_taker):
+    def __init__(self, surname, name, date_of_birth, weight, height):
         super().__init__(weight, height)
         self.surname = surname
         self.name = name
         self.date_of_birth = date_of_birth
-        self.bribe_taker = bribe_taker
-        self.bribes_amount = 0
 
     def __hash__(self):
         return hash(self.surname) + \
@@ -69,6 +66,13 @@ class Deputat(Human, metaclass=RadaMetaClass):
     def __str__(self):
         return f'{self.name} {self.surname}'
 
+
+class UKDeputat(Deputat):
+    def __init__(self, surname, name, date_of_birth, weight, height, bribe_taker):
+        super().__init__(surname, name, date_of_birth, weight, height)
+        self.bribe_taker = bribe_taker
+        self.bribes_amount = 0
+
     def give_tribute(self):
         if not self.bribe_taker:
             print(f'{self} doesnt take bribes')
@@ -80,14 +84,20 @@ class Deputat(Human, metaclass=RadaMetaClass):
                 self.bribes_amount += bribe_amount
 
 
+class PLDeputat(Deputat):
+    def __init__(self, surname, name, date_of_birth, weight, height):
+        super().__init__(surname, name, date_of_birth, weight, height)
+
+
 class Spiker(Human):
     def delete_all_bribe_taker_from_Verhovna_rada(self):
         pass
 
 
-class Fraction():
+class Fraction(ABC):
     name = StrDescriptor()
 
+    @abstractmethod
     def __init__(self, name):
         self.name = name
         self.deputats = set()
@@ -103,17 +113,6 @@ class Fraction():
     def __str__(self):
         return f'Name: {self.name}. Deputats: {len(self.deputats)}'
 
-    @staticmethod
-    def get_deputat():
-        surname = input('Enter surname\n')
-        name = input('Enter name\n')
-        date_of_birth = input('Enter date_of_birth\n')
-        weight = input('Enter weight\n')
-        height = input('Enter height\n')
-        bribe_taker = input('Enter bribe_taker\n')
-        deputat = Deputat(surname, name, date_of_birth, weight, height, bribe_taker)
-        return deputat
-
     def add_deputat(self, deputat):
         if deputat in self.deputats:
             print(f'{deputat} already in fraction')
@@ -126,20 +125,6 @@ class Fraction():
             print(f'{deputat} was removed')
         else:
             print(f'{deputat} is not in {self}')
-
-    def print_all_bribe_takers(self):
-        sorted_list = list(self.deputats)
-        sorted_list.sort(key=Sorting('bribes_amount'))
-        for dep in sorted_list:
-            if dep.bribe_taker:
-                print(dep)
-
-    def get_biggest_bribe_taker(self):
-        sorted_list = list(self.deputats)
-        sorted_list.sort(key=Sorting('bribes_amount'))
-        max_bribe_amount = sorted_list[0]
-        if max_bribe_amount.bribe_taker:
-            return max_bribe_amount
 
     def print_all_deputats(self):
         sorted_list = list(self.deputats)
@@ -157,24 +142,51 @@ class Fraction():
         return False
 
 
-class VerhovnaRada:
+class UKFraktion(Fraction):
+
+    def print_all_bribe_takers(self):
+        sorted_list = list(self.deputats)
+        sorted_list.sort(key=Sorting('bribes_amount'))
+        for dep in sorted_list:
+            if dep.bribe_taker:
+                print(dep)
+
+    def get_biggest_bribe_taker(self):
+        sorted_list = list(self.deputats)
+        sorted_list.sort(key=Sorting('bribes_amount'))
+        max_bribe_amount = sorted_list[0]
+        if max_bribe_amount.bribe_taker:
+            return max_bribe_amount
+
+    @staticmethod
+    def get_deputat():
+        surname = input('Enter surname\n')
+        name = input('Enter name\n')
+        date_of_birth = input('Enter date_of_birth\n')
+        weight = input('Enter weight\n')
+        height = input('Enter height\n')
+        bribe_taker = input('Enter bribe_taker\n')
+        deputat = UKDeputat(surname, name, date_of_birth, weight, height, bribe_taker)
+        return deputat
+
+
+class PLFraction(Fraction):
+
+    @staticmethod
+    def get_deputat():
+        surname = input('Enter surname\n')
+        name = input('Enter name\n')
+        date_of_birth = input('Enter date_of_birth\n')
+        weight = input('Enter weight\n')
+        height = input('Enter height\n')
+        deputat = PLDeputat(surname, name, date_of_birth, weight, height)
+        return deputat
+
+
+class VerhovnaRada(ABC):
 
     def __init__(self):
         self.fractions = set()
-        self.spiker = spiker
-
-    def __iter__(self):
-        self.counter = -1
-        return self
-
-    def __next__(self):
-        self.counter += 1
-        if self.counter >= len(self.fractions):
-            raise StopIteration
-        else:
-            return self.fractions[self.counter]
-
-
 
     def add_fraction(self):
         fraction_name = input('Enter fraction name\n')
@@ -219,4 +231,10 @@ class VerhovnaRada:
             return True
         return False
 
-spiker = Spiker
+
+class UKRada(VerhovnaRada):
+    pass
+
+
+class PLRada(VerhovnaRada):
+    pass
