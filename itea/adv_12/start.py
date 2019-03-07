@@ -74,6 +74,7 @@ popleft
     dec = deque()
     for x in range(number):
         command = input().split(' ')  # enter commands
+        #getattr
         if command[0] == 'append':
             dec.append(command[1])
         elif command[0] == 'appendleft':

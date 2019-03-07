@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+
+
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Add department</div>
+      <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" id="inputEmail" class="form-control" placeholder="Department City"
+                     required="required" autofocus="autofocus" name="department_city">
+              <label for="inputEmail">Department City</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" id="inputPassword" class="form-control" placeholder="Count of workers"
+                     required="required" name="count_of_workers">
+              <label for="inputPassword">Count of workers</label>
+            </div>
+          </div>
+           <input class="btn btn-primary btn-block" type="submit" value="Add">
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

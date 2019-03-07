@@ -1,0 +1,10 @@
+flask==1.0.2
+flask-bcrypt
+flask-login==0.4.1
+flask_sqlalchemy==2.3.2
+sqlalchemy==1.2.18
+
+# for tests
+flake8
+pytest
+beautifulsoup4
